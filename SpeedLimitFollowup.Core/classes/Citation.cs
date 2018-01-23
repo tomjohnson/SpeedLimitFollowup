@@ -45,24 +45,23 @@
         /// <returns>Stylized string of the citation.</returns>
         public override string ToString() {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine("====================================== Citation" + Extentions.GetRandomNumber(0, 10000).ToString() + "  =======================================");
+            sb.AppendLine("====================================== Citation " + Extentions.GetRandomNumber(0, 10000).ToString() + "  =======================================\r\n");
             sb.AppendLine();
-            sb.AppendFormat("Officer: {0} {1} {2} ({3})", CitingOfficer.Rank, CitingOfficer.FirstName, CitingOfficer.LastName, CitingOfficer.BadgeId.ToString());
-            sb.AppendLine("=========================================================================================");
-            sb.AppendLine();
-            sb.AppendFormat("Driver: {0} {1}", CitedDriver.FristName, CitedDriver.LastName);
-            sb.AppendFormat("Address: {0}", CitedDriver.Address1);
+            sb.AppendFormat("Officer: {0} {1} {2} ({3})\r\n", CitingOfficer.Rank, CitingOfficer.FirstName, CitingOfficer.LastName, CitingOfficer.BadgeId.ToString());
+            sb.AppendLine("============================================================================================\r\n");
+            sb.AppendFormat("Driver: {0} {1}\r\n", CitedDriver.FristName, CitedDriver.LastName);
+            sb.AppendFormat("Address: {0}\r\n", CitedDriver.Address1);
 
             if (CitedDriver.Address2 != String.Empty) {
-                sb.AppendLine(CitedDriver.Address2);
+                sb.AppendLine(CitedDriver.Address2 + "\r\n");
             }
 
-            sb.AppendFormat("City: {0}\t\tState{1}\t\tZip{2}", CitedDriver.City, CitedDriver.State, CitedDriver.Zip);
-            sb.AppendLine("=========================================================================================");
-            sb.AppendFormat("Violation Type: {0}", Enum.GetName(typeof(CitationType), CurrentCitationType));
-            sb.AppendFormat("Reason For Stop: {0}", Enum.GetName(typeof(ViolationReason), CurrentViolationReason));
-            sb.AppendFormat("Disposition: {0}", Enum.GetName(typeof(CitationType), CurrentCitationType));
-            sb.AppendFormat("Notes: {0}", OfficerComments);
+            sb.AppendFormat("City: {0}\tState: {1}\tZip: {2}\r\n", CitedDriver.City, CitedDriver.State, CitedDriver.Zip);
+            sb.AppendLine("=============================================================================================");
+            sb.AppendFormat("Violation Type: {0}\r\n", Enum.GetName(typeof(CitationType), CurrentCitationType));
+            sb.AppendFormat("Reason For Stop: {0}\r\n", Enum.GetName(typeof(ViolationReason), CurrentViolationReason));
+            sb.AppendFormat("Disposition: {0}\r\n", Enum.GetName(typeof(CitationType), CurrentCitationType));
+            sb.AppendFormat("Notes: {0}\r\n", OfficerComments);
 
             return sb.ToString();
         }

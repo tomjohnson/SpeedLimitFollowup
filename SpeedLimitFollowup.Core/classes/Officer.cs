@@ -2,6 +2,7 @@
     using SpeedLimitFollowup.Core.enums;
     using SpeedLimitFollowup.Core.extentions;
     using System;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Displays information about the driver.
@@ -169,7 +170,9 @@
                 var speedDifference = this.CurrentSpeedLimit - driver.CurrentSpeed;
                 // Check DOB
                 DateTime today = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-                if (DateTime.Compare(driver.DateOfBirth, today) == 0) { speedDifference -= 10; }
+                // Can't compare directly since the year witll be off.
+                DateTime driverBirthday = new DateTime(DateTime.Now.Year, driver.DateOfBirth.Month, driver.DateOfBirth.Day);
+                if (DateTime.Compare(driverBirthday, today) == 0) { speedDifference -= 10; }
                 if (speedDifference >= 5 && speedDifference <= 10) {
                     currentCitationType = CitationType.SmallTicket;
                 } else if (speedDifference >= 11 && speedDifference <= 15) {
@@ -201,6 +204,105 @@
             }
 
             return newCitation;
+        }
+
+        /// <summary>
+        /// Generates a list of officers for testing.
+        /// </summary>
+        /// <returns>List of officers to test with.</returns>
+        public static List<Officer> GenerateOfficers() {
+            List<Officer> officers = new List<Officer>();
+            var officerOne = new Officer()
+            {
+                FirstName = "Ricky",
+                LastName = "Walsh",
+                BadgeId = 6991,
+                Rank = "Detective",
+            };
+
+            var officerTwo = new Officer()
+            {
+                FirstName = "John",
+                LastName = "McCLain",
+                BadgeId = 4227,
+                Rank = "Officer",
+            };
+
+            var officerThree = new Officer()
+            {
+                FirstName = "Clarence",
+                LastName = "Boddicker",
+                BadgeId = 6781,
+                Rank = "Sargent",
+            };
+
+            var officerFour = new Officer()
+            {
+                FirstName = "Carl",
+                LastName = "Winslow",
+                BadgeId = 7379,
+                Rank = "Lieutenant",
+            };
+
+            var officerFive = new Officer()
+            {
+                FirstName = "Horatio",
+                LastName = "Caine",
+                BadgeId = 17671,
+                Rank = "Detective",
+            };
+
+            var officerSix = new Officer()
+            {
+                FirstName = "Steven",
+                LastName = "Seagal",
+                BadgeId = 12727,
+                Rank = "Deputy",
+            };
+
+            var officerSeven = new Officer()
+            {
+                FirstName = "Chuck",
+                LastName = "Norris",
+                BadgeId = 1,
+                Rank = "Deputy",
+            };
+
+            var officerEight = new Officer()
+            {
+                FirstName = "Gene",
+                LastName = "Roddenberry",
+                BadgeId = 2233,
+                Rank = "Officer",
+            };
+
+            var officerNine = new Officer()
+            {
+                FirstName = "Mark",
+                LastName = "Williams",
+                BadgeId = 6584,
+                Rank = "Lieutenant",
+            };
+
+            var officerTen = new Officer()
+            {
+                FirstName = "Otto",
+                LastName = "",
+                BadgeId = 6991,
+                Rank = "Detective",
+            };
+
+            officers.Add(officerOne);
+            officers.Add(officerTwo);
+            officers.Add(officerThree);
+            officers.Add(officerFour);
+            officers.Add(officerFive);
+            officers.Add(officerSix);
+            officers.Add(officerSeven);
+            officers.Add(officerEight);
+            officers.Add(officerNine);
+            officers.Add(officerTen);
+            return officers;
         }
     }
 }

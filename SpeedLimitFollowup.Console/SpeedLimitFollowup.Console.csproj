@@ -48,5 +48,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SpeedLimitFollowup.Core\SpeedLimitFollowup.Core.csproj">
+      <Project>{8a106117-b034-42e1-942c-fa746f7cf382}</Project>
+      <Name>SpeedLimitFollowup.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
