@@ -2,25 +2,56 @@
     using System;
     using System.Text;
     using SpeedLimitFollowup.Core.enums;
+    using SpeedLimitFollowup.Core.extentions;
 
+    /// <summary>
+    /// Displays information about the citation.
+    /// </summary>
     public class Citation {
-        Officer CitingOfficer { get; set; }
-        Driver CitedDriver { get; set; }
-        ViolationReason CurrentViolationReason { get; set; }
-        CitationType CurrentCitationType { get; set; }
-        ViolationType CurrentViolationType { get; set; }
+        /// <summary>
+        /// Gets or sets the officer writing the citation.
+        /// </summary>
+        public Officer CitingOfficer { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Driver recieving the citation.
+        /// </summary>
+        public Driver CitedDriver { get; set; }
+
+        /// <summary>
+        /// Gets or sets the reason for the driver being pulled over. (headlight out, suspicious activity, etc.)
+        /// </summary>
+        public ViolationReason CurrentViolationReason { get; set; }
+
+        /// <summary>
+        /// Gets or sets the type of citation. (moving, non-moving)
+        /// </summary>
+        public CitationType CurrentCitationType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the disposition of the citation. (warning, ticket)
+        /// </summary>
+        public ViolationType CurrentViolationType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the comments of the officer if any.
+        /// </summary>
         public string OfficerComments { get; set; }
 
+
+        /// <summary>
+        /// Override to the string method to display the citation in a pretty mannor.
+        /// </summary>
+        /// <returns>Stylized string of the citation.</returns>
         public override string ToString() {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine("====================================== Citation" + GetRandomNumber(0, 10000).ToString() + "  =======================================");
+            sb.AppendLine("====================================== Citation" + Extentions.GetRandomNumber(0, 10000).ToString() + "  =======================================");
             sb.AppendLine();
-            sb.AppendFormat(string.Format("Officer: {0} {1} {2} ({3})",
-                CitingOfficer.Rank, CitingOfficer.FirstName, CitingOfficer.LastName, CitingOfficer.BadgeId.ToString()));
+            sb.AppendFormat("Officer: {0} {1} {2} ({3})", CitingOfficer.Rank, CitingOfficer.FirstName, CitingOfficer.LastName, CitingOfficer.BadgeId.ToString());
             sb.AppendLine("=========================================================================================");
             sb.AppendLine();
-            sb.AppendFormat(string.Format("Driver: {0} {1}", CitedDriver.FristName, CitedDriver.LastName));
-            sb.AppendFormat(string.Format("Address: {0}", CitedDriver.Address1));
+            sb.AppendFormat("Driver: {0} {1}", CitedDriver.FristName, CitedDriver.LastName);
+            sb.AppendFormat("Address: {0}", CitedDriver.Address1);
 
             if (CitedDriver.Address2 != String.Empty) {
                 sb.AppendLine(CitedDriver.Address2);
@@ -35,15 +66,5 @@
 
             return sb.ToString();
         }
-
-        private static readonly Random getrandom = new Random();
-        private static readonly object syncLock = new object();
-        public static int GetRandomNumber(int min, int max) {
-            lock (syncLock) { // synchronize
-                return getrandom.Next(min, max);
-            }
-        }
     }
-
-
 }

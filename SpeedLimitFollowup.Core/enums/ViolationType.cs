@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SpeedLimitFollowup.Core.enums {
+﻿namespace SpeedLimitFollowup.Core.enums {
 
     /// <summary>
     /// Defines the type of Violation for a ticket/warning.
