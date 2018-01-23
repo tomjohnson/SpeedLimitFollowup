@@ -1,7 +1,6 @@
 ﻿namespace SpeedLimitFollowup.Core.Classes {
     using System;
     using System.Collections.Generic;
-    using SpeedLimitFollowup.Core.Helpers;
 
     /// <summary>
     /// Displays information about a driver.
@@ -114,7 +113,7 @@
                 Address2 = string.Empty,
                 City = "Pearland",
                 State = "TX",
-                IsImpaired = false,
+                IsImpaired = true,
                 Zip = "80729",
                 DateOfBirth = new DateTime(1982, 08, 28),
             };
@@ -140,7 +139,7 @@
                 Address2 = string.Empty,
                 City = "Kansas City",
                 State = "MI",
-                IsImpaired = false,
+                IsImpaired = true,
                 Zip = "84246",
                 DateOfBirth = new DateTime(1980, 07, 12),
             };
@@ -166,7 +165,7 @@
                 Address2 = "Unit 3",
                 City = "Boulder",
                 State = "CA",
-                IsImpaired = false,
+                IsImpaired = true,
                 Zip = "15743",
                 DateOfBirth = new DateTime(1982, 11, 22),
             };

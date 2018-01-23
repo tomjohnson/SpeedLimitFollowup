@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeedLimitFollowup.Core", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeedLimitFollowup.Console", "SpeedLimitFollowup.Console\SpeedLimitFollowup.Console.csproj", "{30CA2FE0-BBE1-41C5-B08C-E97975C5DFAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeedLimitFollowup.Test", "SpeedLimitFollowup.Test\SpeedLimitFollowup.Test.csproj", "{A897304E-CEDE-41E9-B798-1401D185AA3B}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{30CA2FE0-BBE1-41C5-B08C-E97975C5DFAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30CA2FE0-BBE1-41C5-B08C-E97975C5DFAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30CA2FE0-BBE1-41C5-B08C-E97975C5DFAF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A897304E-CEDE-41E9-B798-1401D185AA3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A897304E-CEDE-41E9-B798-1401D185AA3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A897304E-CEDE-41E9-B798-1401D185AA3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A897304E-CEDE-41E9-B798-1401D185AA3B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

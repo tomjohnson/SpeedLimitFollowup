@@ -1,5 +1,4 @@
 ﻿namespace SpeedLimitFollowup.Core.Helpers {
-    using System;
 
     /// <summary>
     /// Methods to be used throughtout the system and not violated the DRY principle.
