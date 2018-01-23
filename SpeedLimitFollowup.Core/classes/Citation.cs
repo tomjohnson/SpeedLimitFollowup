@@ -1,8 +1,8 @@
-﻿namespace SpeedLimitFollowup.Core.classes {
+﻿namespace SpeedLimitFollowup.Core.Classes {
     using System;
     using System.Text;
-    using SpeedLimitFollowup.Core.enums;
-    using SpeedLimitFollowup.Core.extentions;
+    using SpeedLimitFollowup.Core.Enums;
+    using SpeedLimitFollowup.Core.Helpers;
 
     /// <summary>
     /// Displays information about the citation.
@@ -45,11 +45,12 @@
         /// <returns>Stylized string of the citation.</returns>
         public override string ToString() {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine("====================================== Citation " + Extentions.GetRandomNumber(0, 10000).ToString() + "  =======================================\r\n");
+            sb.AppendLine("====================================== Citation " + LocalRandom.GetRandomNumber(0, 10000).ToString() + "  =======================================\r\n");
             sb.AppendLine();
             sb.AppendFormat("Officer: {0} {1} {2} ({3})\r\n", CitingOfficer.Rank, CitingOfficer.FirstName, CitingOfficer.LastName, CitingOfficer.BadgeId.ToString());
             sb.AppendLine("============================================================================================\r\n");
             sb.AppendFormat("Driver: {0} {1}\r\n", CitedDriver.FristName, CitedDriver.LastName);
+            sb.AppendFormat("DOB: {0}\r\n", CitedDriver.DateOfBirth.ToShortDateString());
             sb.AppendFormat("Address: {0}\r\n", CitedDriver.Address1);
 
             if (CitedDriver.Address2 != String.Empty) {
@@ -58,6 +59,7 @@
 
             sb.AppendFormat("City: {0}\tState: {1}\tZip: {2}\r\n", CitedDriver.City, CitedDriver.State, CitedDriver.Zip);
             sb.AppendLine("=============================================================================================");
+            
             sb.AppendFormat("Violation Type: {0}\r\n", Enum.GetName(typeof(CitationType), CurrentCitationType));
             sb.AppendFormat("Reason For Stop: {0}\r\n", Enum.GetName(typeof(ViolationReason), CurrentViolationReason));
             sb.AppendFormat("Disposition: {0}\r\n", Enum.GetName(typeof(CitationType), CurrentCitationType));

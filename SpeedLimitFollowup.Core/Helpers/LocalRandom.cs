@@ -1,11 +1,11 @@
-﻿namespace SpeedLimitFollowup.Core.extentions {
+﻿namespace SpeedLimitFollowup.Core.Helpers {
     using System;
 
     /// <summary>
     /// Methods to be used throughtout the system and not violated the DRY principle.
     /// </summary>
-    public class Extentions {
-        private static readonly Random getrandom = new Random();
+    public static class LocalRandom {
+        private static readonly System.Random getrandom = new System.Random();
         private static readonly object syncLock = new object();
 
         /// <summary>

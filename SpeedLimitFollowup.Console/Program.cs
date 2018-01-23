@@ -1,14 +1,13 @@
 ﻿namespace SpeedLimitFollowup.Console {
     using System;
     using System.Collections.Generic;
-    using SpeedLimitFollowup.Core.classes;
+    using SpeedLimitFollowup.Core.Classes;
 
     public class Program {
-        static void Main(string[] args) {
-
+        public static void Main() {
             List<Driver> drivers = Driver.GenerateDrivers();
             List<Officer> officers = Officer.GenerateOfficers();
-            for (int i = 0; i < 11; i++) {
+            for (int i = 0; i < officers.Count; i++) {
                 Citation currentCitation = officers[i].PullOver(drivers[i]);
 
                 Console.WriteLine(currentCitation.ToString());

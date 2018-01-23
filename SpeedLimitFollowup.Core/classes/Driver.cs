@@ -1,7 +1,7 @@
-﻿namespace SpeedLimitFollowup.Core.classes {
+﻿namespace SpeedLimitFollowup.Core.Classes {
     using System;
     using System.Collections.Generic;
-    using SpeedLimitFollowup.Core.extentions;
+    using SpeedLimitFollowup.Core.Helpers;
 
     /// <summary>
     /// Displays information about a driver.
@@ -50,15 +50,6 @@
         /// Gets or sets the impairment status of the driver.
         /// </summary>
         public bool IsImpaired { get; set; }
-
-        /// <summary>
-        /// Gets the speed the driver was going.
-        /// </summary>
-        public int CurrentSpeed {
-            get {
-                return Extentions.GetRandomNumber(25, 95);
-            }
-        }
 
         public static List<Driver> GenerateDrivers() {
             List<Driver> drivers = new List<Driver>();
@@ -190,7 +181,7 @@
                 State = "LA",
                 IsImpaired = false,
                 Zip = "70669",
-                DateOfBirth = new DateTime(1986, 09, 21),
+                DateOfBirth = new DateTime(1986, 01, 22),
             };
 
             drivers.Add(driverOne);

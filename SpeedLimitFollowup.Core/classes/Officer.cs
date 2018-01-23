@@ -1,8 +1,8 @@
-﻿namespace SpeedLimitFollowup.Core.classes {
-    using SpeedLimitFollowup.Core.enums;
-    using SpeedLimitFollowup.Core.extentions;
+﻿namespace SpeedLimitFollowup.Core.Classes {
     using System;
     using System.Collections.Generic;
+    using SpeedLimitFollowup.Core.Enums;
+    using SpeedLimitFollowup.Core.Helpers;
 
     /// <summary>
     /// Displays information about the driver.
@@ -30,39 +30,11 @@
         public int BadgeId { get; set; }
 
         /// <summary>
-        /// Gets the mood of the officer (1 = nice, mean = 10)/
-        /// </summary>
-        public int Mood {
-            get {
-                return Extentions.GetRandomNumber(1, 10);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the current speed limit for the area.
-        /// </summary>
-        public int CurrentSpeedLimit {
-            get {
-                return Extentions.GetRandomNumber(25, 75);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the reason the officer pulled the driver over.
-        /// </summary>
-        public ViolationReason reason {
-            get {
-                var reasonNumber = Extentions.GetRandomNumber(1, 11);
-                return (ViolationReason)reasonNumber;
-            }
-        }
-
-        /// <summary>
         ///  Gets or sets the comment number for use on the citation.
         /// </summary>
         private int CommentNumber {
             get {
-                return Extentions.GetRandomNumber(1, 20);
+                return LocalRandom.GetRandomNumber(1, 6);
             }
         }
 
@@ -73,35 +45,15 @@
             get {
                 switch (this.CommentNumber) {
                     case 1:
-                        return "N/A";
+                        return "Hostile driver";
                     case 2:
-                        return "N/A";
+                        return "Third violation in the month";
                     case 3:
-                        return "N/A";
+                        return "Muliple infractions at one time";
                     case 4:
-                        return "N/A";
+                        return "Argumentative";
                     case 5:
-                        return "N/A";
-                    case 6:
-                        return "N/A";
-                    case 7:
-                        return "N/A";
-                    case 8:
-                        return "N/A";
-                    case 9:
-                        return "N/A";
-                    case 10:
-                        return "N/A";
-                    case 11:
-                        return "N/A";
-                    case 12:
-                        return "N/A";
-                    case 13:
-                        return "N/A";
-                    case 14:
-                        return "N/A";
-                    case 15:
-                        return "N/A";
+                        return "Danger to other drivers";
                     default:
                         return "N/A";
                 }
@@ -115,35 +67,15 @@
             get {
                 switch (this.CommentNumber) {
                     case 1:
-                        return "N/A";
+                        return "Driver had a positive attitude so a warning was issued.";
                     case 2:
-                        return "N/A";
+                        return "Driver explained reason for infraction.";
                     case 3:
-                        return "N/A";
+                        return "Educated driver on infraction.";
                     case 4:
-                        return "N/A";
+                        return "First time infraction.";
                     case 5:
-                        return "N/A";
-                    case 6:
-                        return "N/A";
-                    case 7:
-                        return "N/A";
-                    case 8:
-                        return "N/A";
-                    case 9:
-                        return "N/A";
-                    case 10:
-                        return "N/A";
-                    case 11:
-                        return "N/A";
-                    case 12:
-                        return "N/A";
-                    case 13:
-                        return "N/A";
-                    case 14:
-                        return "N/A";
-                    case 15:
-                        return "N/A";
+                        return "New to the area.";
                     default:
                         return "N/A";
                 }
@@ -156,38 +88,77 @@
         /// <param name="driver">Driver the officer has just pulled over.</param>
         /// <returns>The citation the driver recieved.</returns>
         public Citation PullOver(Driver driver) {
-            Citation newCitation = new Citation()
+            var driversSpeed = LocalRandom.GetRandomNumber(25, 95);
+            var currentSpeedLimit = LocalRandom.GetRandomNumber(25, 75);
+            var officersMood = LocalRandom.GetRandomNumber(1, 10);
+            var reasonNumber = LocalRandom.GetRandomNumber(1, 4);
+            var reason  = (ViolationReason)reasonNumber;
+                
+
+                Citation newCitation = new Citation()
             {
                 CitedDriver = driver,
                 CitingOfficer = this,
-                CurrentViolationReason = this.reason,
+                CurrentViolationReason = reason,
             };
 
             CitationType currentCitationType = CitationType.Warning;
             ViolationType currentViolationType = ViolationType.Moving;
-            var speeding = ViolationReason.Speeding;
+            var speeding = ViolationReason.Speeding; // Habit since linq does not like using Violation.foo in queries.
+            var impariment = ViolationReason.SuspicionOfImpairment;
+            // Handle speeding.
             if (newCitation.CurrentViolationReason == speeding) {
-                var speedDifference = this.CurrentSpeedLimit - driver.CurrentSpeed;
+                var speedDifference = driversSpeed - currentSpeedLimit;
+
+                newCitation.OfficerComments += string.Format("\r\n SpeedLimit: {0} Driver Speed: {1}  Speed Overage:{2}\r\n"
+                    , currentSpeedLimit, driversSpeed, speedDifference);
+
                 // Check DOB
                 DateTime today = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
                 // Can't compare directly since the year witll be off.
+
                 DateTime driverBirthday = new DateTime(DateTime.Now.Year, driver.DateOfBirth.Month, driver.DateOfBirth.Day);
-                if (DateTime.Compare(driverBirthday, today) == 0) { speedDifference -= 10; }
-                if (speedDifference >= 5 && speedDifference <= 10) {
-                    currentCitationType = CitationType.SmallTicket;
-                } else if (speedDifference >= 11 && speedDifference <= 15) {
-                    currentCitationType = CitationType.MediumTicket;
-                } else if (speedDifference >= 16) {
-                    currentCitationType = CitationType.BigTicket;
+
+                bool breakCut = false;
+
+                if (DateTime.Compare(driverBirthday, today) == 0) {
+                    speedDifference -= 10;
+                    breakCut = true;
+                }
+                                   
+                
+                // Cut a break if needed.
+                if (breakCut) { newCitation.OfficerComments += " I've cut you a break reducing Overage by 10 MPH.\r\n"; }
+                if (speedDifference > 0) {
+                    if (speedDifference >= 5 && speedDifference <= 10) {
+                        currentCitationType = CitationType.SmallTicket;
+                    } else if (speedDifference >= 11 && speedDifference <= 15) {
+                        currentCitationType = CitationType.MediumTicket;
+                    } else if (speedDifference >= 16) {
+                        currentCitationType = CitationType.BigTicket;
+                    }
+                } else {
+                    currentCitationType = CitationType.Warning;
+                    currentViolationType = ViolationType.Moving;
+                }
+            }else if (newCitation.CurrentViolationReason == impariment) {
+                if (driver.IsImpaired) {
+                    currentCitationType = CitationType.Ticket;
+                    currentViolationType = ViolationType.Moving;
+                    newCitation.OfficerComments += "Driver was visibly impaired. \r\n";
+                } else {
+                    currentCitationType = CitationType.Warning;
+                    currentViolationType = ViolationType.Moving;
+                    newCitation.OfficerComments += "Driver was not visibly impaired. \r\n";
                 }
             } else {
-                if (this.Mood >= 5) {
+                // Other infractions are random chance.
+                if (officersMood >= 5) {
                     currentCitationType = CitationType.Ticket;
                 } else {
                     currentCitationType = CitationType.Warning;
                 }
-                var reasonNumber = (int)this.reason;
-                if (reasonNumber >= 5) {
+                if (reasonNumber <= 2) {
                     currentViolationType = ViolationType.Moving;
                 } else {
                     currentViolationType = ViolationType.NonMoving;
@@ -198,9 +169,9 @@
             newCitation.CurrentViolationType = currentViolationType;
 
             if (currentCitationType == CitationType.Warning) {
-                newCitation.OfficerComments = this.NegativeComment;
+                newCitation.OfficerComments += this.PositiveComment;
             } else {
-                newCitation.OfficerComments = this.PositiveComment;
+                newCitation.OfficerComments += this.NegativeComment;
             }
 
             return newCitation;
