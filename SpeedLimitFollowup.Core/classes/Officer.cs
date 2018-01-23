@@ -10,5 +10,9 @@ namespace SpeedLimitFollowup.Core.classes {
         public string LastName { get; set; }
         public string Rank { get; set; }
         public int BadgeId { get; set; }
+
+        public Citation PullOver(Driver driver) {
+            throw new NotImplementedException();
+        }
     }
 }
