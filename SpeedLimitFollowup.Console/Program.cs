@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SpeedLimitFollowup.Core
-{
-    public class Class1
-    {
+namespace SpeedLimitFollowup.Console {
+    class Program {
+        static void Main(string[] args) {
+        }
     }
 }
