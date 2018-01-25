@@ -43,14 +43,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\Driver.cs" />
-    <Compile Include="Classes\Officer.cs" />
-    <Compile Include="Classes\Citation.cs" />
+    <Compile Include="Interfaces\ICitationService.cs" />
+    <Compile Include="Models\Driver.cs" />
+    <Compile Include="Models\Officer.cs" />
+    <Compile Include="Models\Citation.cs" />
     <Compile Include="Enums\CitationType.cs" />
     <Compile Include="Enums\ViolationReason.cs" />
     <Compile Include="Enums\ViolationType.cs" />
+    <Compile Include="Helpers\CheckBirthdaySpeed.cs" />
     <Compile Include="Helpers\LocalRandom.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CitationService.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

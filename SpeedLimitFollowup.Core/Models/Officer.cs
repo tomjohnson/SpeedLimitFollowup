@@ -1,7 +1,5 @@
-﻿namespace SpeedLimitFollowup.Core.Classes {
-    using System;
+﻿namespace SpeedLimitFollowup.Core.Models {
     using System.Collections.Generic;
-    using SpeedLimitFollowup.Core.Enums;
     using SpeedLimitFollowup.Core.Helpers;
 
     /// <summary>
@@ -80,101 +78,6 @@
                         return "N/A";
                 }
             }
-        }
-
-        /// <summary>
-        /// Logic used for determining the ticket a driver will recieve.
-        /// </summary>
-        /// <param name="driver">Driver the officer has just pulled over.</param>
-        /// <returns>The citation the driver recieved.</returns>
-        public Citation PullOver(Driver driver) {
-            var driversSpeed = LocalRandom.GetRandomNumber(25, 95);
-            var currentSpeedLimit = LocalRandom.GetRandomNumber(25, 75);
-            var officersMood = LocalRandom.GetRandomNumber(1, 10);
-            var reasonNumber = LocalRandom.GetRandomNumber(1, 4);
-            var reason  = (ViolationReason)reasonNumber;
-                
-
-                Citation newCitation = new Citation()
-            {
-                CitedDriver = driver,
-                CitingOfficer = this,
-                CurrentViolationReason = reason,
-            };
-
-            CitationType currentCitationType = CitationType.Warning;
-            ViolationType currentViolationType = ViolationType.Moving;
-            var speeding = ViolationReason.Speeding; // Habit since linq does not like using Violation.foo in queries.
-            var impariment = ViolationReason.SuspicionOfImpairment;
-            // Handle speeding.
-            if (newCitation.CurrentViolationReason == speeding) {
-                var speedDifference = driversSpeed - currentSpeedLimit;
-
-                newCitation.OfficerComments += string.Format("\r\n SpeedLimit: {0} Driver Speed: {1}  Speed Overage:{2}\r\n"
-                    , currentSpeedLimit, driversSpeed, speedDifference);
-
-                // Check DOB
-                DateTime today = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-                // Can't compare directly since the year witll be off.
-
-                DateTime driverBirthday = new DateTime(DateTime.Now.Year, driver.DateOfBirth.Month, driver.DateOfBirth.Day);
-
-                bool breakCut = false;
-
-                if (DateTime.Compare(driverBirthday, today) == 0) {
-                    speedDifference -= 10;
-                    breakCut = true;
-                }
-                                   
-                
-                // Cut a break if needed.
-                if (breakCut) { newCitation.OfficerComments += " I've cut you a break reducing Overage by 10 MPH.\r\n"; }
-                if (speedDifference > 0) {
-                    if (speedDifference >= 5 && speedDifference <= 10) {
-                        currentCitationType = CitationType.SmallTicket;
-                    } else if (speedDifference >= 11 && speedDifference <= 15) {
-                        currentCitationType = CitationType.MediumTicket;
-                    } else if (speedDifference >= 16) {
-                        currentCitationType = CitationType.BigTicket;
-                    }
-                } else {
-                    currentCitationType = CitationType.Warning;
-                    currentViolationType = ViolationType.Moving;
-                }
-            }else if (newCitation.CurrentViolationReason == impariment) {
-                if (driver.IsImpaired) {
-                    currentCitationType = CitationType.Ticket;
-                    currentViolationType = ViolationType.Moving;
-                    newCitation.OfficerComments += "Driver was visibly impaired. \r\n";
-                } else {
-                    currentCitationType = CitationType.Warning;
-                    currentViolationType = ViolationType.Moving;
-                    newCitation.OfficerComments += "Driver was not visibly impaired. \r\n";
-                }
-            } else {
-                // Other infractions are random chance.
-                if (officersMood >= 5) {
-                    currentCitationType = CitationType.Ticket;
-                } else {
-                    currentCitationType = CitationType.Warning;
-                }
-                if (reasonNumber <= 2) {
-                    currentViolationType = ViolationType.Moving;
-                } else {
-                    currentViolationType = ViolationType.NonMoving;
-                }
-            }
-
-            newCitation.CurrentCitationType = currentCitationType;
-            newCitation.CurrentViolationType = currentViolationType;
-
-            if (currentCitationType == CitationType.Warning) {
-                newCitation.OfficerComments += this.PositiveComment;
-            } else {
-                newCitation.OfficerComments += this.NegativeComment;
-            }
-
-            return newCitation;
         }
 
         /// <summary>

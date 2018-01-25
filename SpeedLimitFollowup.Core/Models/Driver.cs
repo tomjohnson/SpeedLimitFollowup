@@ -1,4 +1,4 @@
-﻿namespace SpeedLimitFollowup.Core.Classes {
+﻿namespace SpeedLimitFollowup.Core.Models {
     using System;
     using System.Collections.Generic;
 
@@ -9,7 +9,7 @@
         /// <summary>
         /// Gets or sets the first name of the driver.
         /// </summary>
-        public string FristName { get; set; }
+        public string FirstName { get; set; }
         /// <summary>
         ///  Gets or sets the last name of the driver.
         /// </summary>
@@ -23,12 +23,12 @@
         /// <summary>
         /// Gets or set the address of the driver.
         /// </summary>
-        public string Address1 { get; set; }
+        public string AddressOne { get; set; }
 
         /// <summary>
         ///  Gets or sets any overflow address information of the driver.
         /// </summary>
-        public string Address2 { get; set; }
+        public string AddressTwo { get; set; }
 
         /// <summary>
         ///  Gets or sets the city of the driver.
@@ -55,10 +55,10 @@
 
             var driverOne = new Driver()
             {
-                FristName = "Tom",
+                FirstName = "Tom",
                 LastName = "Johnson",
-                Address1 = "800 Krause",
-                Address2 = string.Empty,
+                AddressOne = "800 Krause",
+                AddressTwo = string.Empty,
                 City = "Westlake",
                 State = "LA",
                 IsImpaired = false,
@@ -68,10 +68,10 @@
 
             var driverTwo = new Driver()
             {
-                FristName = "Mary",
+                FirstName = "Mary",
                 LastName = "Wajert",
-                Address1 = "7720 Forest Park Drive",
-                Address2 = string.Empty,
+                AddressOne = "7720 Forest Park Drive",
+                AddressTwo = string.Empty,
                 City = "Beaumont",
                 State = "TX",
                 IsImpaired = false,
@@ -81,10 +81,10 @@
 
             var driverThree = new Driver()
             {
-                FristName = "Donna",
+                FirstName = "Donna",
                 LastName = "Johnson",
-                Address1 = "780 Vivian",
-                Address2 = string.Empty,
+                AddressOne = "780 Vivian",
+                AddressTwo = string.Empty,
                 City = "Bridge City",
                 State = "TX",
                 IsImpaired = false,
@@ -94,10 +94,10 @@
 
             var driverFour = new Driver()
             {
-                FristName = "Debbie",
+                FirstName = "Debbie",
                 LastName = "Falcon",
-                Address1 = "2300 Sunmeadow",
-                Address2 = string.Empty,
+                AddressOne = "2300 Sunmeadow",
+                AddressTwo = string.Empty,
                 City = "Lake Charles",
                 State = "LA",
                 IsImpaired = false,
@@ -107,10 +107,10 @@
 
             var driverFive = new Driver()
             {
-                FristName = "Matt",
+                FirstName = "Matt",
                 LastName = "Johnson",
-                Address1 = "417 Anthony Ln",
-                Address2 = string.Empty,
+                AddressOne = "417 Anthony Ln",
+                AddressTwo = string.Empty,
                 City = "Pearland",
                 State = "TX",
                 IsImpaired = true,
@@ -120,10 +120,10 @@
 
             var driverSix = new Driver()
             {
-                FristName = "Adam",
+                FirstName = "Adam",
                 LastName = "Swann",
-                Address1 = "127 E Vouge",
-                Address2 = string.Empty,
+                AddressOne = "127 E Vouge",
+                AddressTwo = string.Empty,
                 City = "Lake Charles",
                 State = "LA",
                 IsImpaired = false,
@@ -133,10 +133,10 @@
 
             var driverSeven = new Driver()
             {
-                FristName = "Jude",
+                FirstName = "Jude",
                 LastName = "Melancon",
-                Address1 = "127 Bit Drive",
-                Address2 = string.Empty,
+                AddressOne = "127 Bit Drive",
+                AddressTwo = string.Empty,
                 City = "Kansas City",
                 State = "MI",
                 IsImpaired = true,
@@ -146,10 +146,10 @@
 
             var driverEight = new Driver()
             {
-                FristName = "Amy",
+                FirstName = "Amy",
                 LastName = "McCan",
-                Address1 = "1927 Angola Way",
-                Address2 = string.Empty,
+                AddressOne = "1927 Angola Way",
+                AddressTwo = string.Empty,
                 City = "Tallahassee",
                 State = "FL",
                 IsImpaired = false,
@@ -159,10 +159,10 @@
 
             var driverNine = new Driver()
             {
-                FristName = "Dima",
+                FirstName = "Dima",
                 LastName = "Barashkov",
-                Address1 = "024 Kushner Drive",
-                Address2 = "Unit 3",
+                AddressOne = "024 Kushner Drive",
+                AddressTwo = "Unit 3",
                 City = "Boulder",
                 State = "CA",
                 IsImpaired = true,
@@ -172,10 +172,10 @@
 
             var driverTen = new Driver()
             {
-                FristName = "Jennifer",
+                FirstName = "Jennifer",
                 LastName = "Johnson",
-                Address1 = "800 Krause",
-                Address2 = string.Empty,
+                AddressOne = "800 Krause",
+                AddressTwo = string.Empty,
                 City = "Westlake",
                 State = "LA",
                 IsImpaired = false,
